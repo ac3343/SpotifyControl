@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/library_root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fragments.Library">
+
+    <LinearLayout
+        android:id="@+id/libraryList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button6"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15sp"
+            android:text="Playlists"
+            android:textAlignment="viewStart"
+            android:textColor="#62D089"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/button7"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15sp"
+            android:text="Artists"
+            android:textAlignment="viewStart"
+            android:textColor="#62D089"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/button8"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15sp"
+            android:text="Songs"
+            android:textAlignment="viewStart"
+            android:textColor="#62D089"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/button9"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15sp"
+            android:text="Albums"
+            android:textAlignment="viewStart"
+            android:textColor="#62D089"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20sp"
+            android:text="Recently Played"
+            android:textAlignment="center"
+            android:textColor="#E1ECE3"
+            android:textSize="24sp" />
+
+        <LinearLayout
+            android:id="@+id/recentlyPlayed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"></LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/library">
+    <fragment
+        android:id="@+id/library"
+        android:name="com.ac3343.spotcontroller.fragments.Library"
+        android:label="Library" >
+        <action
+            android:id="@+id/action_library_to_tracks2"
+            app:destination="@id/tracks" />
+        <action
+            android:id="@+id/action_library_to_albums2"
+            app:destination="@id/albums"
+            app:launchSingleTop="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/singleAlbum"
+        android:name="com.ac3343.spotcontroller.fragments.SingleAlbum"
+        android:label="fragment_single_album"
+        tools:layout="@layout/fragment_single_album" />
+    <fragment
+        android:id="@+id/albums"
+        android:name="com.ac3343.spotcontroller.fragments.Albums"
+        android:label="fragment_albums"
+        tools:layout="@layout/fragment_albums" />
+    <fragment
+        android:id="@+id/tracks"
+        android:name="com.ac3343.spotcontroller.fragments.Tracks"
+        android:label="fragment_tracks"
+        tools:layout="@layout/fragment_tracks" />
+    <action
+        android:id="@+id/opensinglealbum"
+        app:destination="@id/singleAlbum" />
+    <fragment
+        android:id="@+id/search"
+        android:name="com.ac3343.spotcontroller.fragments.Search"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+    <action
+        android:id="@+id/tosearch"
+        app:destination="@id/search" />
+    <action
+        android:id="@+id/tolibrary"
+        app:destination="@id/library" />
+</navigation>
