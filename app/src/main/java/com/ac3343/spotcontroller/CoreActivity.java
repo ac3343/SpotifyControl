@@ -72,11 +72,15 @@ public class CoreActivity extends AppCompatActivity {
     private final String RP_FILE = "recentlyplayed";
     private final String TRACKS_FILE = "savedtracks";
     private final String ALBUMS_FILE = "savedalbums";
+    private final String COUNTS_FILE = "itemcounts";
+
     List<Runnable> onRemoteConnect;
     List<Runnable> onAuthConnect;
     private VMLibrary mVMLibrary;
     private int albumCount;
     private int trackCount;
+    private int readAlbumCount;
+    private int readTrackCount;
 
 
     @Override
@@ -131,9 +135,26 @@ public class CoreActivity extends AppCompatActivity {
             recentlyPlayed.addAll(Arrays.asList(fileAlbums));
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            Log.e("CORE", "Could not read recently played file. Message: " + e.getMessage());
         }
-        Log.i("CORE", "Gibberish finished");
+
+        try {
+            fis = openFileInput(COUNTS_FILE);
+            Scanner scanner = new Scanner(fis);
+            scanner.useDelimiter("\\Z");
+            String content = scanner.next();
+            scanner.close();
+
+            String[] counts = content.split("\n");
+            readAlbumCount = Integer.parseInt(counts[0]);
+            readTrackCount = Integer.parseInt(counts[1]);
+
+        } catch (Exception e) {
+            readAlbumCount = readTrackCount = 0;
+            Log.e("CORE", "Could not read item counts file. Message: " + e.getMessage());
+        }
+
+        Log.i("CORE", "OnCreate finished");
     }
 
     @Override
@@ -543,6 +564,34 @@ public class CoreActivity extends AppCompatActivity {
 
     public void SetAlbumCount(int count){
         albumCount = count;
+        saveCounts();
     }
-    public void SetTrackCount(int count) { trackCount = count;}
+    public void SetTrackCount(int count) {
+        trackCount = count;
+        saveCounts();
+    }
+
+    private void saveCounts(){
+        StringBuilder countString = new StringBuilder();
+        countString.append(albumCount);
+        countString.append('\n');
+        countString.append(trackCount);
+
+        FileOutputStream fos = null;
+        try {
+            fos = openFileOutput(COUNTS_FILE, Context.MODE_PRIVATE);
+            fos.write(countString.toString().getBytes(StandardCharsets.UTF_8));
+            fos.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public int GetReadAlbumCount() {
+        return readAlbumCount;
+    }
+
+    public int GetReadTrackCount() {
+        return readTrackCount;
+    }
 }

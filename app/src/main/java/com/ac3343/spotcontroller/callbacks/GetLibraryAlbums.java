@@ -99,6 +99,34 @@ public class GetLibraryAlbums extends UrlRequest.Callback {
         try {
             JSONObject jbers = new JSONObject(jsonString);
             JSONArray items = jbers.getJSONArray("items");
+            int itemTotal = jbers.getInt("total");
+
+            if(onSuccess != null){
+                switch (itemType){
+                    case Album:
+                        if(app.GetReadAlbumCount() != itemTotal){
+                            app.SetAlbumCount(itemTotal);
+                        }
+                        else{
+                            return;
+                        }
+                        break;
+                    case Track:
+                        if(app.GetReadTrackCount() != itemTotal){
+                            app.SetTrackCount(itemTotal);
+                        }
+                        else{
+                            return;
+                        }
+                        break;
+                    case Playlist:
+                    case Artist:
+                    default:
+                        break;
+                }
+
+                onSuccess.start();
+            }
 
             //Create list of albums
             for(int i = 0; i < items.length(); i++){
@@ -122,23 +150,7 @@ public class GetLibraryAlbums extends UrlRequest.Callback {
                 }
             }
 
-            if(onSuccess != null){
-                switch (itemType){
 
-                    case Album:
-                        app.SetAlbumCount(jbers.getInt("total"));
-                        break;
-                    case Track:
-                        app.SetTrackCount(jbers.getInt("total"));
-                        break;
-                    case Playlist:
-                    case Artist:
-                    default:
-                        break;
-                }
-
-                onSuccess.start();
-            }
         } catch (Exception e) {
             if(e.getClass() == JSONException.class){
                 Log.e(TAG, "JSON Convert Fucked: " + jsonString);
